@@ -1,0 +1,7 @@
+react => jas로 모든 것을 끝낼 수 있도록 페이스북에서 만든 라이브러리(?)
+
+        ReactDOM 인자값 두가지
+        첫번째 : 넣을 내용 == React.createElement('button',null,'버튼')
+        두번째 : 넣을 위치 == document.querySelector('#root')
+
+        JSX 영역에서 class html tag에 class 줄때 classname사용하기
