@@ -51,39 +51,102 @@
         class ComponentForm extends React.Component {
             render() {
                 return (
-                    <li class="comment-form">
-                        <form>
-                            <h4>댓글쓰기 <span>(3)</span></h4>
-                            <span class="ps_box">
-                                <input type="text" placeholder="댓글내용을 입력해주세요." class="int" />
-                            </span>
-                            <input type="submit" value="등록" class="btn" />
-                        </form>
-                    </li>
+                    <>
+                        <li className="comment-form">
+                            <form onSubmit={this.props.onSubmit}>
+                                <h4>댓글쓰기 <span>({this.props.length})</span></h4>
+                                <span className="ps_box">
+                                    <input type="text" name="content" placeholder="댓글내용을 입력해주세요." className="int" />
+                                </span>
+                                <input type="submit" value="등록" className="btn" />
+                            </form>
+                        </li>
+                        <ComponentRow content={this.props.content} date={this.props.date} />
+                    </>
                 )
             }
         }
 
         class ComponentRow extends React.Component {
+
+            // renderList(n) {
+            //     let arr = Array().fill(null);
+            //     return
+            // }
+            // return 에 있었음 {this.renderList(this.props.content)}
+
             render() {
                 return (
                     <li>
-                        <ul class="comment-row">
-                            <li class="comment-id">userid</li>
-                            <li class="comment-content">user content</li>
-                            <li class="comment-date"> date </li>
+                        <ul className="comment-row">
+                            <li className="comment-id">{this.props.userid}</li>
+                            <li className="comment-content">{this.props.content}</li>
+                            <li className="comment-date"> {this.props.date} </li>
                         </ul>
+                        
                     </li>
-                    
+
                 )
             }
         }
         class CommentApp extends React.Component {
-            render() {
-                return (
-                    <ul class="comment"><ComponentRow /><ComponentRow /><ComponentRow /><ComponentForm/></ul>
+            constructor(props) {
+                super(props)
+                this.state = {
+                    // content: null,
+                    // date: new Date().toLocaleDateString(),
+                    // count:0
+                    comments:[
+                        {userid:'1111',content:'hello',date:new Date().toLocaleDateString()},
+                        {userid:'1111',content:'hello!!!!',date:new Date().toLocaleDateString()},
+                    ]
+                }
+            }
+
+            onSubmit = (e) => {
+                e.preventDefault()
+                // this.setState({ content: e.target.content.value }) // =>현재 우리 입장에서 form
+                let input = e.target.querySelector('.int').value;
+                let obj = {userid:'1111',content:input,date:new Date().toLocaleDateString()}
+                //this.state.comment.push(obj) << 불가능한 코드임 since never used setState
+                let {comments} = {...this.state};
+                comments.push(obj);
+                this.setState({comments:comments})
+                e.target.reset()
+            }
+
+            renderRow(){
+                let {comments} = {...this.state}
+                return(
+                    comments.map((value,key)=>{
+                        return(
+                            <ComponentRow 
+                                key={key}
+                                userid={value.userid}
+                                content = {value.content}
+                                date={value.date}
+                            />
+                        )
+                    })
                 )
             }
+
+            render(){
+                return(
+                    <ul className="comment">
+                        <ComponentForm length={this.state.comments.length} onSubmit={this.onSubmit}/>
+                        {this.renderRow()}
+                    </ul>
+                )
+            }
+
+            // render() {
+            //     return (
+            //         <ul className="comment">
+            //             <ComponentForm onSubmit={this.onSubmit} content={this.state.content} date={this.state.date} count={this.state.count}/>
+            //         </ul>
+            //     )
+            // }
         }
         ReactDOM.render(
             <CommentApp />,

@@ -5,3 +5,27 @@ react => jas로 모든 것을 끝낼 수 있도록 페이스북에서 만든 라
         두번째 : 넣을 위치 == document.querySelector('#root')
 
         JSX 영역에서 class html tag에 class 줄때 classname사용하기
+
+setInterval 안에서 setState를 쓰면 무한 반복으로 데이터도 많이 잡아먹기 때문에 실질적으로 사용하지 않는다.
+그래서 반복되는 기간을 정리해주는 componentDidMount라는 함수가 있다.
+<< 생명주기 함수
+
+CREATE REACT == CRA 자동세팅
+babel , webpack : JSX == 코드를 짧게&변형 (예:빈 html 코드)
+react , react-dom
+
+class component || function component
+>> hook 이라는게 생기면서 함수형으로 많이 넘어감
+
+redux == 상태값 component왔다갔다하기 쉽기 만든 상태관리 라이브러리
+
+next.js == 조금 더 쉽게 개발할 수 있는 react
+
+swift/portlin언어로
+
+web view == 어플리케이션 만들때 브라우저만 만들어서 웹페이지 띄우는 거
+
+
+SPA single page application
+
+constructor, super은 babel있으면 사용하지 않아도 됨

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        class GuguList extends React.Component {
+
+            renderList(n) {
+                let g = parseInt(n);
+                let arr = Array(9).fill(null)
+                return (
+                    arr.map((value, key) => {
+                        console.log(key)
+                        return <li>{g} * {key + 1} = {g * (key + 1)}</li>
+                    })
+                )
+            }
+
+            render() {
+                return (
+                    <>
+                        <li>{this.props.gugu}단 입니다.</li>
+                        {this.renderList(this.props.gugu)}
+                    </>
+                )
+            }
+        }
+
+        // <li>{this.props.gugu} * 1 = {this.props.gugu*1}</li>
+        //                 <li>{this.props.gugu} * 2 = {this.props.gugu*2}</li>
+        //                 <li>{this.props.gugu} * 3 = {this.props.gugu*3}</li>
+        //                 <li>{this.props.gugu} * 4 = {this.props.gugu*4}</li>
+        //                 <li>{this.props.gugu} * 5 = {this.props.gugu*5}</li>
+        //                 <li>{this.props.gugu} * 6 = {this.props.gugu*6}</li>
+        //                 <li>{this.props.gugu} * 7 = {this.props.gugu*7}</li>
+        //                 <li>{this.props.gugu} * 8 = {this.props.gugu*8}</li>
+        //                 <li>{this.props.gugu} * 9 = {this.props.gugu*9}</li>
+
+        class GuguForm extends React.Component {
+
+            render() {
+                return (
+                    <>
+                        <li>
+                            <h2>몇단을 구하시겠습니까?</h2>
+                            <form onSubmit={this.props.onSubmit}>
+                                <input type="number" name="gugu" placeholder="숫자를 입력해주세요" />
+                                <input type="submit" placeholder="조회" />
+                            </form>
+                        </li>
+                        {this.props.isSubmit ? <GuguList gugu={this.props.gugu} /> : ""}
+                    </>
+                )
+            }
+        }
+
+        class App extends React.Component {
+            constructor(props) {
+                super(props)
+                this.state = {
+                    isSubmit: false,
+                    gugu: 0,
+                }
+            }
+
+            onSubmit = (e) => {
+                e.preventDefault() // form submit 이벤트 막기
+                this.setState({
+                    isSubmit: true,
+                    gugu: e.target.gugu.value,
+                }) // 상태값만 변경
+            }
+
+            render() {
+                return (
+                    <ul>
+                        <GuguForm
+                            isSubmit={this.state.isSubmit}
+                            onSubmit={this.onSubmit}
+                            gugu={this.state.gugu}
+                        />
+                    </ul>
+                )
+            }
+
+        }
+
+        ReactDOM.render(
+            <App />,
+            document.querySelector('#root')
+        )
+    </script>
+</body>
+
+</html>
